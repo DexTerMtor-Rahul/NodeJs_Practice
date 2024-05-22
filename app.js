@@ -5,7 +5,10 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const adminRoutes = require("./routes/admin");
+app.set("view engine", "pug");
+app.set("views", "views");
+
+const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //like using css from public folder in any where
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminRoutes);
+app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
